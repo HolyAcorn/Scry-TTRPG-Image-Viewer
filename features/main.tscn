@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://rvx1xahaiy8q"]
+
+[ext_resource type="Script" uid="uid://d060du8mpas3e" path="res://features/new_main.gd" id="1_w4jju"]
+[ext_resource type="Script" uid="uid://ctt6wuvirm1r6" path="res://features/ui/ui.gd" id="2_stixs"]
+[ext_resource type="Script" uid="uid://dpt31yhd5qg5f" path="res://features/ui/image_tab_container.gd" id="3_qvctj"]
+[ext_resource type="PackedScene" uid="uid://ouqxr8viv3ko" path="res://features/ui/tab.tscn" id="4_kec3v"]
+[ext_resource type="Script" uid="uid://bqplwi8b5dilo" path="res://features/ui/tab_name_edit.gd" id="5_55vp2"]
+[ext_resource type="PackedScene" uid="uid://c1ibl8t8ufq3y" path="res://features/image_window/image_window.tscn" id="6_kec3v"]
+[ext_resource type="Script" uid="uid://byjidpe7viyx4" path="res://features/ui/slideshow.gd" id="7_55vp2"]
+[ext_resource type="Script" uid="uid://dlgkjd14fugmg" path="res://features/setup/setup_controller.gd" id="8_55vp2"]
+[ext_resource type="Script" uid="uid://d2fkocd866mep" path="res://features/load_image_file_dialog.gd" id="8_is02o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_is02o"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.27022207, 0.27022186, 0.2702219, 0.9764706)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Main" type="Node" unique_id=1497893809 node_paths=PackedStringArray("ui", "image_window", "slide_show", "load_image_file_dialog", "setup_controller")]
+script = ExtResource("1_w4jju")
+ui = NodePath("UI")
+image_window = NodePath("ImageWindow")
+slide_show = NodePath("Slideshow")
+load_image_file_dialog = NodePath("LoadImageFileDialog")
+setup_controller = NodePath("SetupController")
+metadata/_custom_type_script = "uid://d060du8mpas3e"
+
+[node name="UI" type="Control" parent="." unique_id=1880469506 node_paths=PackedStringArray("tab_container", "save_setup_btn", "load_setup_btn", "start_slideshow_btn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_stixs")
+tab_container = NodePath("PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/TabContainer")
+save_setup_btn = NodePath("PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/HBoxContainer/SaveSetupBtn")
+load_setup_btn = NodePath("PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/HBoxContainer/LoadSetupBtn")
+start_slideshow_btn = NodePath("PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/StartSlideshowBTN")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="UI" unique_id=557524084]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/PanelContainer" unique_id=1694971338]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/PanelContainer/CenterContainer" unique_id=964123936]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/CenterContainer/PanelContainer" unique_id=392509169]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MainContainer" type="VBoxContainer" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer" unique_id=830192170]
+custom_minimum_size = Vector2(669, 0)
+layout_mode = 2
+
+[node name="StartSlideshowBTN" type="Button" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer" unique_id=573886747]
+layout_mode = 2
+text = "Start Slideshow"
+
+[node name="TabContainer" type="TabContainer" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer" unique_id=1212571428 node_paths=PackedStringArray("new_tab_btn")]
+layout_mode = 2
+current_tab = 0
+script = ExtResource("3_qvctj")
+new_tab_btn = NodePath("AddNewTabButton")
+metadata/_custom_type_script = "uid://dpt31yhd5qg5f"
+
+[node name="Tab1" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/TabContainer" unique_id=163779344 instance=ExtResource("4_kec3v")]
+layout_mode = 2
+
+[node name="AddNewTabButton" type="Button" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/TabContainer" unique_id=2035005039]
+visible = false
+layout_mode = 2
+text = "+"
+metadata/_tab_index = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer" unique_id=1499154081]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="SaveSetupBtn" type="Button" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/HBoxContainer" unique_id=1519596822]
+layout_mode = 2
+text = "Save Setup"
+
+[node name="LoadSetupBtn" type="Button" parent="UI/PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/HBoxContainer" unique_id=1328586315]
+layout_mode = 2
+text = "Load Setup"
+
+[node name="TabNameEdit" type="PanelContainer" parent="UI" unique_id=1491198165 node_paths=PackedStringArray("tab_container", "line_edit")]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -46.5
+offset_right = 118.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_is02o")
+script = ExtResource("5_55vp2")
+tab_container = NodePath("../PanelContainer/CenterContainer/PanelContainer/MarginContainer/MainContainer/TabContainer")
+line_edit = NodePath("MarginContainer/CenterContainer/VBoxContainer/TabNameEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/TabNameEdit" unique_id=679189781]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/TabNameEdit/MarginContainer" unique_id=402959976]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabNameEdit/MarginContainer/CenterContainer" unique_id=1756799326]
+layout_mode = 2
+
+[node name="TabNameEdit" type="LineEdit" parent="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer" unique_id=365295822]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer" unique_id=1337707292]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=831620132]
+layout_mode = 2
+text = "OK"
+
+[node name="Button2" type="Button" parent="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=2035663731]
+layout_mode = 2
+text = "CANCEL"
+
+[node name="ImageWindow" parent="." unique_id=1092022380 instance=ExtResource("6_kec3v")]
+visible = false
+popup_window = false
+
+[node name="Slideshow" type="Node" parent="." unique_id=2100040942]
+script = ExtResource("7_55vp2")
+duration = 5.0
+transition_type = 7
+ease_type = 2
+fade_duration = 0.5
+
+[node name="LoadImageFileDialog" type="FileDialog" parent="." unique_id=1054624378]
+oversampling_override = 1.0
+title = "Open File(s)"
+position = Vector2i(0, 36)
+size = Vector2i(960, 540)
+file_mode = 1
+access = 2
+script = ExtResource("8_is02o")
+
+[node name="SetupController" type="Node" parent="." unique_id=879497739 node_paths=PackedStringArray("save_setup_file_dialog", "load_setup_file_dialog")]
+script = ExtResource("8_55vp2")
+save_setup_file_dialog = NodePath("SaveSetupDialog")
+load_setup_file_dialog = NodePath("LoadSetupDialog")
+metadata/_custom_type_script = "uid://dlgkjd14fugmg"
+
+[node name="SaveSetupDialog" type="FileDialog" parent="SetupController" unique_id=1727663734]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(960, 540)
+access = 2
+filters = PackedStringArray("*.json")
+
+[node name="LoadSetupDialog" type="FileDialog" parent="SetupController" unique_id=1949098771]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(960, 540)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.json")
+
+[connection signal="text_submitted" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/TabNameEdit" to="UI/TabNameEdit" method="_on_tab_name_edit_text_submitted"]
+[connection signal="pressed" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="UI/TabNameEdit" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Button2" to="UI/TabNameEdit" method="_on_button_2_pressed"]

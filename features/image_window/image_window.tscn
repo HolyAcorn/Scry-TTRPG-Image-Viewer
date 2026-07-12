@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c1ibl8t8ufq3y"]
+
+[ext_resource type="Script" uid="uid://b1ukt32krbbq5" path="res://features/image_window/image_window.gd" id="1_qp5e3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qp5e3"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Window" type="Window" unique_id=1092022380 node_paths=PackedStringArray("texture")]
+oversampling_override = 1.0
+mode = 3
+initial_position = 3
+size = Vector2i(1920, 1080)
+current_screen = 0
+borderless = true
+popup_window = true
+script = ExtResource("1_qp5e3")
+texture = NodePath("ImageWindow/Control/PanelContainer/TextureRect")
+
+[node name="ImageWindow" type="CanvasLayer" parent="." unique_id=1175764027]
+
+[node name="Control" type="Control" parent="ImageWindow" unique_id=1197022953]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ImageWindow/Control" unique_id=1014228526]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qp5e3")
+
+[node name="TextureRect" type="TextureRect" parent="ImageWindow/Control/PanelContainer" unique_id=956380711]
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5

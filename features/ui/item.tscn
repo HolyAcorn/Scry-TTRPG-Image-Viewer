@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c4tjsmxnvgby2"]
+
+[ext_resource type="StyleBox" uid="uid://ggmtgr82g35c" path="res://themes/current_item_stylebox.tres" id="1_glvaa"]
+[ext_resource type="Script" uid="uid://bq3qaj6bk5a1j" path="res://features/ui/item.gd" id="2_idc7y"]
+[ext_resource type="StyleBox" uid="uid://baka3yvwslj8b" path="res://themes/item_stylebox.tres" id="3_e81u4"]
+[ext_resource type="Theme" uid="uid://dtraogic2suha" path="res://themes/main_theme.tres" id="4_m0n28"]
+
+[node name="Item" type="PanelContainer" unique_id=1067973941 node_paths=PackedStringArray("make_current_btn", "remove_btn", "label")]
+theme_override_styles/panel = ExtResource("1_glvaa")
+script = ExtResource("2_idc7y")
+default_style_box = ExtResource("3_e81u4")
+current_style_box = ExtResource("1_glvaa")
+make_current_btn = NodePath("MarginContainer/HBoxContainer/MakeCurrentBTN")
+remove_btn = NodePath("MarginContainer/HBoxContainer/RemoveBTN")
+label = NodePath("MarginContainer/HBoxContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1659244366]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=223340110]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="MakeCurrentBTN" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1632078690]
+layout_mode = 2
+text = "Make Current"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer" unique_id=582070775]
+layout_mode = 2
+text = "Image"
+
+[node name="RemoveBTN" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1913940120]
+layout_mode = 2
+text = "X"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer" unique_id=226468237]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/HBoxContainer" unique_id=427794080]
+layout_mode = 2
+theme = ExtResource("4_m0n28")
+theme_override_font_sizes/font_size = 12
+text = "Part of Slideshow"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MakeCurrentBTN" to="." method="_on_make_current_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RemoveBTN" to="." method="_on_remove_btn_pressed"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]

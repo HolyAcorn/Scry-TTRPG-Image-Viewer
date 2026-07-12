@@ -1,0 +1,9 @@
+[gd_resource type="Theme" format=3 uid="uid://dtraogic2suha"]
+
+[ext_resource type="StyleBox" uid="uid://q3lniqreb8y6" path="res://themes/new_style_box_flat.tres" id="1_470mv"]
+
+[resource]
+CheckBox/styles/hover = ExtResource("1_470mv")
+CheckBox/styles/normal = ExtResource("1_470mv")
+LineEdit/styles/normal = ExtResource("1_470mv")
+OptionButton/styles/normal = ExtResource("1_470mv")
