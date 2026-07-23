@@ -1,4 +1,7 @@
 # Scry TTRPG Image Viewer
+
+![Scry-Logo](logo.png)
+
 Scry is a TTRPG tool designed for Game Masters (GMs) to easily prepare and display images for your players as either a slideshow/presentation. Or a to effortlessly switch between images.
 
 ## Getting Started
@@ -11,9 +14,9 @@ Scry is a TTRPG tool designed for Game Masters (GMs) to easily prepare and displ
 - Saving and loading setups
 
 ### Shortcuts
-- H - Toggle Hide/Show presentation window
-- Left/Right - Go to previous/next image (NOT YET IMPLEMENTED)
-- Shift+Left/Right - Switch to the previous/next tab (NOT YET IMPLEMENTED)
+- **H** - Toggle Hide/Show presentation window
+- **Left/Right** - Go to previous/next image (NOT YET IMPLEMENTED)
+- **Shift+Left/Right** - Switch to the previous/next tab (NOT YET IMPLEMENTED)
 
 ### Setups
 You can save your current tabs and images as a setup. This will be saved as a .json file that you can then load.
