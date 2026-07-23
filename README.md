@@ -6,6 +6,7 @@ Scry is a TTRPG tool designed for Game Masters (GMs) to easily prepare and displ
 
 ## Getting Started
 ### INSTALLATION
+Download from here: https://github.com/HolyAcorn/Scry-TTRPG-Image-Viewer/releases
 
 ## Features
 - Adding images and switching between them.
