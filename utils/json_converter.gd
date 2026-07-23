@@ -18,7 +18,10 @@ static func setup_to_json(setup : Setup) -> String:
 		json += "\"image_paths\": ["
 		for y in range(tab.image_paths.size()):
 			var path = tab.image_paths[y]
-			json += "\n\t\t\t\t\"" + path + "\""
+			json += "\n\t\t\t\t{"
+			json += "\n\t\t\t\t\t \"path\": \"" + path.path + "\","
+			json += "\n\t\t\t\t\t\t \"is_slideshow\": \" " + str(path.is_slideshow)
+			json += "\n\t\t\t\t}"
 			if y < tab.image_paths.size()-1:
 				json += ","
 		json += "\n\t\t\t]"
@@ -43,7 +46,10 @@ static func json_to_setup(json : Dictionary) -> Setup:
 		tab.duration = json_tab["duration"]
 		tab.fade_duration = json_tab["fade_duration"]
 		for image_path in json_tab["image_paths"]:
-			tab.image_paths.append(image_path)
+			var image_item := Setup.ImageItem.new()
+			image_item.path = image_path["path"]
+			image_item.is_slideshow = image_path["is_slideshow"]
+			tab.image_paths.append(image_item)
 		setup.tabs.append(tab)
 	
 	return setup

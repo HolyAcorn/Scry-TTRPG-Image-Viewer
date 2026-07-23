@@ -14,11 +14,10 @@ config/name="Scry TTRPG Image Viewer"
 run/main_scene="uid://rvx1xahaiy8q"
 config/features=PackedStringArray("4.6", "Forward Plus")
 run/low_processor_mode=true
-config/icon="res://icon.svg"
+config/icon="uid://dxkkmfch4l6fj"
 
 [display]
 
-window/size/borderless=true
 window/subwindows/embed_subwindows=false
 
 [input]

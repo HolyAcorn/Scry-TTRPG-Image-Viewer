@@ -61,6 +61,18 @@ func update_setup(property_name : String, value : Variant, tab_index : int = 0):
 			setup.current_item_index = value
 	on_setup_changed.emit(setup)
 
+func update_image_paths(paths : Array[String], tab_index : int, is_slideshow : bool = false):
+	for path in paths:
+		var item_image : Setup.ImageItem = Setup.ImageItem.new()
+		item_image.path = path
+		item_image.is_slideshow = is_slideshow
+		setup.tabs[tab_index].image_paths.append(item_image)
+
+func update_image_slideshow(item: Item, tab_index : int, is_slideshow : bool):
+	for i in range(setup.tabs[tab_index].image_paths.size()):
+		if setup.tabs[tab_index].image_paths[i].path == item.path:
+			setup.tabs[tab_index].image_paths[i].is_slideshow = is_slideshow
+			
 func add_tab(title : String):
 	var tab_resource := Setup.TabResource.new()
 	tab_resource.title = title

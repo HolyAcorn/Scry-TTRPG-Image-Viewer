@@ -1,10 +1,14 @@
 class_name Setup
 extends Resource
 
+class ImageItem:
+	var path : String
+	var is_slideshow : bool
+
 class TabResource:
 	var index : int
 	var title : String
-	var image_paths : Array[String]
+	var image_paths : Array[ImageItem]
 	var ease_type : Tween.EaseType
 	var trans_type : Tween.TransitionType
 	var fade_duration : float

@@ -6,21 +6,21 @@ extends VBoxContainer
 @export var add_item_btn : Button
 
 var setup : Setup
-var images : Array[String]
+var images : Array[Setup.ImageItem]
 var index : int
 
 signal on_new_name
 
-func build_services(setup_controller : SetupController, tab_index : int, items : Array[String] = []):
+func build_services(setup_controller : SetupController, tab_index : int, items : Array[Setup.ImageItem] = []):
 	index = tab_index
 	setup = setup_controller.setup
 	options_menu.build_services(setup_controller, index)
-	item_list.build_services(items)
+	item_list.build_services(index, items)
 
-func bind_services(tab_container : ImageTabContainer, slide_show : SlideShow, load_image_dialog : ):
+func bind_services(tab_container : ImageTabContainer, slide_show : SlideShow, load_image_dialog : LoadImageFileDialog, setup_controller : SetupController ):
 	add_item_btn.pressed.connect(load_image_dialog.show_file_dialog)
 	options_menu.bind_services(tab_container)
-	item_list.bind_services(slide_show, tab_container)
+	item_list.bind_services(slide_show, tab_container, setup_controller)
 
 
 func set_new_name(new_name: String):

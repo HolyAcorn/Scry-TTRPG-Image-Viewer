@@ -5,7 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://baka3yvwslj8b" path="res://themes/item_stylebox.tres" id="3_e81u4"]
 [ext_resource type="Theme" uid="uid://dtraogic2suha" path="res://themes/main_theme.tres" id="4_m0n28"]
 
-[node name="Item" type="PanelContainer" unique_id=1067973941 node_paths=PackedStringArray("make_current_btn", "remove_btn", "label")]
+[node name="Item" type="PanelContainer" unique_id=1067973941 node_paths=PackedStringArray("make_current_btn", "remove_btn", "label", "toggle_slideshow_btn")]
 theme_override_styles/panel = ExtResource("1_glvaa")
 script = ExtResource("2_idc7y")
 default_style_box = ExtResource("3_e81u4")
@@ -13,6 +13,7 @@ current_style_box = ExtResource("1_glvaa")
 make_current_btn = NodePath("MarginContainer/HBoxContainer/MakeCurrentBTN")
 remove_btn = NodePath("MarginContainer/HBoxContainer/RemoveBTN")
 label = NodePath("MarginContainer/HBoxContainer/Label")
+toggle_slideshow_btn = NodePath("MarginContainer/HBoxContainer/CheckBox")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1659244366]
 layout_mode = 2

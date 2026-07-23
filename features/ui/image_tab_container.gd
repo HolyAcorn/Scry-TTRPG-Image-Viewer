@@ -36,7 +36,7 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 	for i in range(get_children().size()):
 		var child = get_child(i)
 		if child is Tab:
-			child.bind_services(self, slide_show, load_file_dialog)
+			child.bind_services(self, slide_show, load_file_dialog, setup_controller)
 	tab_selected.connect(add_new_tab)
 	setup_controller.on_setup_changed.connect(on_setup_changed)
 	update_setup.connect(setup_controller.update_setup)
@@ -48,14 +48,15 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 func add_new_tab(tab : int):
 	if tabs[tab] is not Button:
 		setup_loaded.emit(setup, tab)
-		tab_index = current_tab
+		tab_index = tab
+		print("current tab: " + str(tab))
 		return
 	var new_tab := TAB_SCENE_REF.instantiate() as Tab
-	new_tab.build_services(setup_controller, tab-1)
-	new_tab.bind_services(self, slide_show, load_file_dialog)
 	new_tab.name = "Tab " + str(tab+1)
-	tabs.insert(tabs.size()-1, new_tab)
 	on_add_new_tab.emit(new_tab.name)
+	new_tab.build_services(setup_controller, tab)
+	new_tab.bind_services(self, slide_show, load_file_dialog, setup_controller)
+	tabs.insert(tabs.size()-1, new_tab)
 	set_tabs()
 
 func set_tabs():
@@ -66,7 +67,7 @@ func set_tabs():
 		add_child(tab)
 		if tab is Button:
 			set_tab_title(i, "+")
-			tab_index = i
+			#tab_index = i
 #	while current_tab != new_tab_index:
 #		select_next_available()
 	
@@ -77,7 +78,7 @@ func update_texts():
 			set_tab_title(i, get_child(i).name)
 
 func on_update_setup(property_name : String, value : Variant):
-	update_setup.emit(property_name, value, current_tab)
+	update_setup.emit(property_name, value, tab_index)
 
 func on_setup_changed(setup : Setup):
 	tabs.clear()
@@ -85,19 +86,19 @@ func on_setup_changed(setup : Setup):
 		var tab := setup.tabs[i]
 		var new_tab := TAB_SCENE_REF.instantiate() as Tab
 		new_tab.build_services(setup_controller, i, tab.image_paths)
-		new_tab.bind_services(self, slide_show, load_file_dialog)
+		new_tab.bind_services(self, slide_show, load_file_dialog, setup_controller)
 		new_tab.name = "Tab " + str(i+1)
 		tabs.append(new_tab)
 	tabs.append(new_tab_btn)
 	set_tabs()
 	self.setup = setup
-	setup_loaded.emit(setup, current_tab)
+	setup_loaded.emit(setup, tab_index)
 
 func on_image_selected(item : Item):
 	for i in range(get_children().size()):
 		var tab = get_children()[i]
-		if tab is Tab and i != current_tab:
+		if tab is Tab and i != tab.index:
 			tab.on_other_tab_selected()
 
 func load_images_from_dialog(paths : PackedStringArray):
-	tabs[current_tab].item_list.load_items(paths)
+	tabs[tab_index].item_list.load_items(paths)
