@@ -29,7 +29,7 @@ func build_services(setup_controller : SetupController):
 		elif child is Button:
 			set_tab_title(i, "+")
 	
-func bind_services(setup_controller : SetupController, slideshow : SlideShow, load_file_dialog : LoadImageFileDialog):
+func bind_services(setup_controller : SetupController, slideshow : SlideShow, load_file_dialog : LoadImageFileDialog, input : InputController):
 	self.setup_controller = setup_controller
 	self.slide_show = slideshow
 	self.load_file_dialog = load_file_dialog
@@ -43,6 +43,7 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 	on_add_new_tab.connect(setup_controller.add_tab)
 	setup_loaded.connect(slideshow.update_settings)
 	load_file_dialog.files_selected.connect(load_images_from_dialog)
+	input.on_change_tab_button_pressed.connect(change_tab)
 	
 
 func add_new_tab(tab : int):
@@ -102,3 +103,13 @@ func on_image_selected(item : Item):
 
 func load_images_from_dialog(paths : PackedStringArray):
 	tabs[tab_index].item_list.load_items(paths)
+
+func change_tab(next : bool):
+	if tabs.size() < 3:
+		return
+	if next:
+		if select_next_available():
+			tab_index += 1
+	else:
+		if select_previous_available():
+			tab_index -= 1

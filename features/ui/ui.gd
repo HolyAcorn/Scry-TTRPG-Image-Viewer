@@ -10,13 +10,13 @@ extends Control
 func build_services(setup_controller : SetupController):
 	tab_container.build_services(setup_controller)
 	
-func bind_services(setup_controller : SetupController, slideshow : SlideShow, load_file_dialog : LoadImageFileDialog):
+func bind_services(setup_controller : SetupController, slideshow : SlideShow, load_file_dialog : LoadImageFileDialog, input : InputController):
 	save_setup_btn.pressed.connect(setup_controller.show_save_setup)
 	load_setup_btn.pressed.connect(setup_controller.show_load_setup)
 	start_slideshow_btn.pressed.connect(slideshow.on_slideshow)
 	slideshow.toggle_slideshow_btn_disabled.connect(toggle_slideshow_button_disabled)
 	slideshow.set_slideshow_btn_text.connect(set_slideshow_button_text)
-	tab_container.bind_services(setup_controller, slideshow, load_file_dialog)
+	tab_container.bind_services(setup_controller, slideshow, load_file_dialog, input)
 
 func toggle_slideshow_button_disabled(disabled : bool):
 	start_slideshow_btn.disabled = disabled

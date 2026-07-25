@@ -7,6 +7,8 @@ extends Node
 @export var load_image_file_dialog : FileDialog
 @export var setup_controller : SetupController
 
+var input_controller : InputController
+
 signal toggle_hide_image
 
 func _ready() -> void:
@@ -14,6 +16,8 @@ func _ready() -> void:
 	bind_services()
 
 func build_services():
+	input_controller = InputController.new()
+	
 	setup_controller.build_services()
 	image_window.build_services()
 	slide_show.build_services(image_window)
@@ -21,9 +25,9 @@ func build_services():
 	
 func bind_services():
 	setup_controller.bind_serivces()
-	image_window.bind_services(self)
+	image_window.bind_services(self, input_controller)
 	slide_show.bind_services(image_window)
-	ui.bind_services(setup_controller, slide_show, load_image_file_dialog)
+	ui.bind_services(setup_controller, slide_show, load_image_file_dialog, input_controller)
 	
 
 func _unhandled_input(event: InputEvent) -> void:

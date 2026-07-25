@@ -6,8 +6,9 @@ class_name ImageWindow
 func build_services():
 	pass
 
-func bind_services(main : Main):
+func bind_services(main : Main, input_controller : InputController):
 	main.toggle_hide_image.connect(toggle_visibility)
+	input_controller.on_hide_button_pressed.connect(toggle_visibility)
 
 func set_texture(image : Image):
 	var img_text := ImageTexture.create_from_image(image)
@@ -15,7 +16,3 @@ func set_texture(image : Image):
 
 func toggle_visibility():
 	visible = !visible
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("hide"):
-		toggle_visibility()
