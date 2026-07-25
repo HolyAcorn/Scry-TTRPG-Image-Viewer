@@ -5,7 +5,7 @@ extends Control
 @export var save_setup_btn : Button
 @export var load_setup_btn : Button
 @export var start_slideshow_btn : Button
-
+@export var rename_tab_container : RenameTabContainer
 
 func build_services(setup_controller : SetupController):
 	tab_container.build_services(setup_controller)
@@ -17,6 +17,7 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 	slideshow.toggle_slideshow_btn_disabled.connect(toggle_slideshow_button_disabled)
 	slideshow.set_slideshow_btn_text.connect(set_slideshow_button_text)
 	tab_container.bind_services(setup_controller, slideshow, load_file_dialog)
+	rename_tab_container.bind_services(tab_container)
 
 func toggle_slideshow_button_disabled(disabled : bool):
 	start_slideshow_btn.disabled = disabled
