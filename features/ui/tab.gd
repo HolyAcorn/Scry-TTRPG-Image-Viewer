@@ -21,10 +21,11 @@ func bind_services(tab_container : ImageTabContainer, slide_show : SlideShow, lo
 	add_item_btn.pressed.connect(load_image_dialog.show_file_dialog)
 	options_menu.bind_services(tab_container)
 	item_list.bind_services(slide_show, tab_container, setup_controller)
-
+	#on_new_name.connect(tab_container.update_texts)
 
 func set_new_name(new_name: String):
 	name = new_name
+	setup.tabs[index].title = new_name
 	on_new_name.emit()
 
 func on_other_tab_selected():

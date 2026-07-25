@@ -9,10 +9,14 @@ var tab_index : int = 0
 var tabs : Array[Control]
 var setup : Setup
 
+var double_click_time : float = 0.5
+var is_awaiting_double_click : bool = false
+
 signal tab_button_clicked(node : Tab)
 signal update_setup(property_name : String, value : Variant, tab_index : int)
 signal setup_loaded(setup : Setup, tab_index : int)
 signal on_add_new_tab(title: String)
+signal on_open_rename_tab(tab : Tab)
 
 var setup_controller : SetupController
 var slide_show : SlideShow
@@ -37,20 +41,28 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 		var child = get_child(i)
 		if child is Tab:
 			child.bind_services(self, slide_show, load_file_dialog, setup_controller)
-	tab_selected.connect(add_new_tab)
+	tab_selected.connect(tab_clicked)
 	setup_controller.on_setup_changed.connect(on_setup_changed)
 	update_setup.connect(setup_controller.update_setup)
 	on_add_new_tab.connect(setup_controller.add_tab)
 	setup_loaded.connect(slideshow.update_settings)
 	load_file_dialog.files_selected.connect(load_images_from_dialog)
 	
-
-func add_new_tab(tab : int):
+	
+func tab_clicked(tab : int):
+	if is_awaiting_double_click:
+		on_open_rename_tab.emit(tabs[tab])
 	if tabs[tab] is not Button:
 		setup_loaded.emit(setup, tab)
 		tab_index = tab
 		print("current tab: " + str(tab))
+		is_awaiting_double_click = true
+		get_tree().create_timer(double_click_time).timeout.connect(_on_double_click_timer_timeout)
 		return
+	else:
+		add_new_tab(tab)
+
+func add_new_tab(tab : int):
 	var new_tab := TAB_SCENE_REF.instantiate() as Tab
 	new_tab.name = "Tab " + str(tab+1)
 	on_add_new_tab.emit(new_tab.name)
@@ -65,6 +77,7 @@ func set_tabs():
 	for i in range(tabs.size()):
 		var tab = tabs[i]
 		add_child(tab)
+		set_tab_title(i, tab.name)
 		if tab is Button:
 			set_tab_title(i, "+")
 			#tab_index = i
@@ -73,8 +86,8 @@ func set_tabs():
 	
 func update_texts():
 	for i in range(get_children().size()):
-		if get_child(i).name != "+":
-			var new_name = get_child(i).name
+		if get_child(i).name != "AddNewTabButton":
+			var new_name = setup.tabs[i].title
 			set_tab_title(i, get_child(i).name)
 
 func on_update_setup(property_name : String, value : Variant):
@@ -87,7 +100,7 @@ func on_setup_changed(setup : Setup):
 		var new_tab := TAB_SCENE_REF.instantiate() as Tab
 		new_tab.build_services(setup_controller, i, tab.image_paths)
 		new_tab.bind_services(self, slide_show, load_file_dialog, setup_controller)
-		new_tab.name = "Tab " + str(i+1)
+		new_tab.name = tab.title
 		tabs.append(new_tab)
 	tabs.append(new_tab_btn)
 	set_tabs()
@@ -102,3 +115,6 @@ func on_image_selected(item : Item):
 
 func load_images_from_dialog(paths : PackedStringArray):
 	tabs[tab_index].item_list.load_items(paths)
+
+func _on_double_click_timer_timeout():
+	is_awaiting_double_click = false

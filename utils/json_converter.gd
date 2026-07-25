@@ -20,7 +20,7 @@ static func setup_to_json(setup : Setup) -> String:
 			var path = tab.image_paths[y]
 			json += "\n\t\t\t\t{"
 			json += "\n\t\t\t\t\t \"path\": \"" + path.path + "\","
-			json += "\n\t\t\t\t\t\t \"is_slideshow\": \" " + str(path.is_slideshow)
+			json += "\n\t\t\t\t\t\t \"is_slideshow\": " + str(path.is_slideshow)
 			json += "\n\t\t\t\t}"
 			if y < tab.image_paths.size()-1:
 				json += ","

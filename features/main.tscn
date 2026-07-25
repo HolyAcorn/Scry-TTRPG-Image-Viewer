@@ -31,7 +31,7 @@ load_image_file_dialog = NodePath("LoadImageFileDialog")
 setup_controller = NodePath("SetupController")
 metadata/_custom_type_script = "uid://d060du8mpas3e"
 
-[node name="UI" type="Control" parent="." unique_id=1880469506 node_paths=PackedStringArray("tab_container", "save_setup_btn", "load_setup_btn", "start_slideshow_btn")]
+[node name="UI" type="Control" parent="." unique_id=1880469506 node_paths=PackedStringArray("tab_container", "save_setup_btn", "load_setup_btn", "start_slideshow_btn", "rename_tab_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,6 +43,7 @@ tab_container = NodePath("PanelContainer2/MarginContainer/MainContainer/TabConta
 save_setup_btn = NodePath("PanelContainer2/MarginContainer/MainContainer/HBoxContainer/SaveSetupBtn")
 load_setup_btn = NodePath("PanelContainer2/MarginContainer/MainContainer/HBoxContainer/LoadSetupBtn")
 start_slideshow_btn = NodePath("PanelContainer2/MarginContainer/MainContainer/StartSlideshowBTN")
+rename_tab_container = NodePath("TabNameEdit")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer2" type="PanelContainer" parent="UI" unique_id=964123936]
@@ -98,7 +99,7 @@ text = "Save Setup"
 layout_mode = 2
 text = "Load Setup"
 
-[node name="TabNameEdit" type="PanelContainer" parent="UI" unique_id=1491198165 node_paths=PackedStringArray("tab_container", "line_edit")]
+[node name="TabNameEdit" type="PanelContainer" parent="UI" unique_id=1491198165 node_paths=PackedStringArray("line_edit")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -114,7 +115,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_is02o")
 script = ExtResource("5_55vp2")
-tab_container = NodePath("../PanelContainer2/MarginContainer/MainContainer/TabContainer")
 line_edit = NodePath("MarginContainer/CenterContainer/VBoxContainer/TabNameEdit")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/TabNameEdit" unique_id=679189781]
@@ -188,6 +188,5 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.json")
 
-[connection signal="text_submitted" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/TabNameEdit" to="UI/TabNameEdit" method="_on_tab_name_edit_text_submitted"]
 [connection signal="pressed" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Button" to="UI/TabNameEdit" method="_on_button_pressed"]
 [connection signal="pressed" from="UI/TabNameEdit/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/Button2" to="UI/TabNameEdit" method="_on_button_2_pressed"]
