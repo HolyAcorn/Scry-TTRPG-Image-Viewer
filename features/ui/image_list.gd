@@ -1,6 +1,13 @@
 class_name ImageList
 extends VBoxContainer
 
+const VIDEO_FORMATS = [
+	"mp4",
+	"webm",
+	"mov",
+	"avi"
+]
+
 const data_path := "res://data/"
 const item_path := preload("res://features/ui/item.tscn")
 

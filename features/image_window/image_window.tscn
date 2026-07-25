@@ -48,3 +48,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qp5e3")
 layout_mode = 2
 expand_mode = 3
 stretch_mode = 5
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="ImageWindow/Control/PanelContainer" unique_id=1241193931]
+visible = false
+layout_mode = 2
