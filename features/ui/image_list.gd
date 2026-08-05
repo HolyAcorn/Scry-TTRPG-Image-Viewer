@@ -11,6 +11,7 @@ signal on_item_add_slideshow(item: Item, value : bool)
 signal on_update_image_slideshow(item : Item, tab_index : int, is_slideshow : bool)
 
 signal image_loaded(paths : PackedStringArray, tab_index : int)
+signal on_remove_item(tab_index : int, image_path : String)
 
 func build_services(tab : int, images : Array[Setup.ImageItem] = []):
 	if images.size() > 0:
@@ -23,11 +24,8 @@ func bind_services(slideshow : SlideShow, tab_container : ImageTabContainer, set
 	on_item_add_slideshow.connect(slideshow.on_item_list_on_item_add_slideshow)
 	image_loaded.connect(setup_controller.update_image_paths)
 	on_update_image_slideshow.connect(setup_controller.update_image_slideshow)
+	on_remove_item.connect(setup_controller.remove_image)
 	#image_loaded.connect(tab_container.on_update_setup)
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	get_viewport().get_window().files_dropped.connect(load_items)
 
 func load_items(paths : PackedStringArray,  prefix_path : String = ""):
 	image_loaded.emit(paths, tab_index)
@@ -87,8 +85,15 @@ func on_toggle_add_slideshow(item : Item, value : bool):
 
 func erase_item(item : Item):
 	on_item_add_slideshow.emit(item, false)
+	on_remove_item.emit(tab_index, item.path)
 	item.queue_free()
 
 func toggle_all_not_current():
 	for item in get_children():
 		item.toggle_current(false)
+
+func disconnect_load_signal():
+	get_viewport().get_window().files_dropped.disconnect(load_items)
+	
+func connect_load_signal():
+	get_viewport().get_window().files_dropped.connect(load_items)
