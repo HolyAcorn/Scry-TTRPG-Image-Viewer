@@ -30,6 +30,7 @@ func build_services(setup_controller : SetupController):
 		if child is Tab:
 			child.on_new_name.connect(update_texts)
 			child.build_services(setup_controller, i)
+			child.on_tab_selected()
 		elif child is Button:
 			set_tab_title(i, "+")
 	
@@ -54,7 +55,9 @@ func tab_clicked(tab : int):
 		on_open_rename_tab.emit(tabs[tab])
 	if tabs[tab] is not Button:
 		setup_loaded.emit(setup, tab)
+		tabs[tab_index].on_other_tab_selected()
 		tab_index = tab
+		tabs[tab_index].on_tab_selected()
 		print("current tab: " + str(tab))
 		is_awaiting_double_click = true
 		get_tree().create_timer(double_click_time).timeout.connect(_on_double_click_timer_timeout)

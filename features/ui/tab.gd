@@ -30,3 +30,7 @@ func set_new_name(new_name: String):
 
 func on_other_tab_selected():
 	item_list.toggle_all_not_current()
+	item_list.disconnect_load_signal()
+
+func on_tab_selected():
+	item_list.connect_load_signal()

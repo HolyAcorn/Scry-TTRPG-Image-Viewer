@@ -81,3 +81,9 @@ func add_tab(title : String):
 	tab_resource.duration = 5.0
 	tab_resource.fade_duration = 0.5
 	setup.tabs.append(tab_resource)
+
+func remove_image(tab_index : int, image_path : String):
+	for image in setup.tabs[tab_index].image_paths:
+		if image.path == image_path:
+			setup.tabs[tab_index].image_paths.erase(image)
+			break
