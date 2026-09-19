@@ -8,6 +8,7 @@ class_name Item
 @export var remove_btn : Button
 @export var label : Label
 @export var toggle_slideshow_btn : CheckBox
+var is_video : bool = false
 
 var _image : Image
 var path : String
@@ -27,11 +28,12 @@ func bind_services(image_list : ImageList):
 func _ready() -> void:
 	add_theme_stylebox_override("panel", default_style_box)
 
-func add_item(file_name : String, image : Image, is_slideshow: bool, path : String):
+func add_item(file_name : String, image : Image, is_slideshow: bool, path : String, is_video : bool = false):
 	label.text = file_name
 	_image = image
 	toggle_slideshow_btn.button_pressed = is_slideshow
 	self.path = path
+	self.is_video = is_video
 
 func _on_make_current_btn_pressed() -> void:
 	toggle_current(true)

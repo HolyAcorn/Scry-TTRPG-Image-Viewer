@@ -46,7 +46,11 @@ func load_items(paths : PackedStringArray,  prefix_path : String = ""):
 		if file.contains(".import"):
 			continue
 		var item = item_path.instantiate() as Item
-		item.add_item(file_name, image, false, file)
+		var is_video : bool = false
+		for format in FileFormatUtil.video_files:
+			if file.ends_with(format):
+				is_video = true
+		item.add_item(file_name, image, false, file, is_video)
 		item.build_services()
 		item.bind_services(self)
 		add_child(item)
@@ -72,9 +76,6 @@ func load_items_from_setup(images : Array[Setup.ImageItem]):
 		item.bind_services(self)
 		add_child(item)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func on_image_selected(item : Item, image : Image):
 	for _item in get_children():

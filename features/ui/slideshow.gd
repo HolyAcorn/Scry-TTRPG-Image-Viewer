@@ -8,7 +8,7 @@ class_name SlideShow
 @export var fade_duration : float
 
 
-signal update_image(new_image :Image)
+signal update_image(new_item : Item)
 signal toggle_slideshow_btn_disabled(disabled : bool)
 signal set_slideshow_btn_text(text : String)
 
@@ -21,7 +21,7 @@ func build_services(image_window : ImageWindow):
 	image = image_window.texture
 	
 func bind_services(image_window : ImageWindow):
-	update_image.connect(image_window.set_texture)
+	update_image.connect(image_window.on_change_item)
 
 func _ready() -> void:
 	if items.size() == 0:
@@ -52,7 +52,7 @@ func transition(new_item : Item):
 	var tween = get_tree().create_tween().set_ease(ease_type).set_trans(transition_type)
 	tween.tween_property(image, "modulate", Color(1,1,1,0), fade_duration/2)
 	await tween.finished
-	update_image.emit(new_item._image)
+	update_image.emit(new_item)
 	current_item = new_item
 	tween = get_tree().create_tween().set_ease(ease_type).set_trans(transition_type)
 	tween.tween_property(image, "modulate", Color(1,1,1,1), fade_duration/2)

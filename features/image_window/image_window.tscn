@@ -14,7 +14,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[node name="Window" type="Window" unique_id=1092022380 node_paths=PackedStringArray("texture")]
+[node name="Window" type="Window" unique_id=1092022380 node_paths=PackedStringArray("texture", "video")]
 oversampling_override = 1.0
 mode = 3
 initial_position = 3
@@ -24,6 +24,7 @@ borderless = true
 popup_window = true
 script = ExtResource("1_qp5e3")
 texture = NodePath("ImageWindow/Control/PanelContainer/TextureRect")
+video = NodePath("ImageWindow/Control/PanelContainer/VideoStreamPlayer")
 
 [node name="ImageWindow" type="CanvasLayer" parent="." unique_id=1175764027]
 
@@ -45,10 +46,10 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qp5e3")
 
 [node name="TextureRect" type="TextureRect" parent="ImageWindow/Control/PanelContainer" unique_id=956380711]
+visible = false
 layout_mode = 2
 expand_mode = 3
 stretch_mode = 5
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="ImageWindow/Control/PanelContainer" unique_id=1241193931]
-visible = false
 layout_mode = 2

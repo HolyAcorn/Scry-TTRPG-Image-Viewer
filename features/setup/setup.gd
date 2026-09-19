@@ -4,6 +4,7 @@ extends Resource
 class ImageItem:
 	var path : String
 	var is_slideshow : bool
+	var is_video : bool
 
 class TabResource:
 	var index : int

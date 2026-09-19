@@ -10,6 +10,14 @@ func build_services():
 func bind_services(main : Main):
 	main.toggle_hide_image.connect(toggle_visibility)
 
+func on_change_item(item : Item):
+	if item.is_video:
+		var video_stream : VideoStream = VideoStream.new()
+		video_stream.file = item.path
+		set_video(video_stream)
+	else:
+		set_texture(item._image)
+
 func set_texture(image : Image):
 	var img_text := ImageTexture.create_from_image(image)
 	texture.texture = img_text
