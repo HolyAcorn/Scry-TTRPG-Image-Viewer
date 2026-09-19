@@ -16,6 +16,7 @@ signal on_make_current(item : Item, image : Image)
 signal on_remove(item :Item)
 signal toggle_add_slideshow(item : Item, value : bool)
 
+
 func build_services():
 	pass
 	

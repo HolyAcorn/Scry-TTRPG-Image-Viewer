@@ -5,13 +5,19 @@ const data_path := "res://data/"
 const item_path := preload("res://features/ui/item.tscn")
 
 var tab_index : int
+@export var active : bool
 
 signal image_selected(image : Item)
 signal on_item_add_slideshow(item: Item, value : bool)
+signal on_set_slideshow(items : Array[Item])
 signal on_update_image_slideshow(item : Item, tab_index : int, is_slideshow : bool)
 
 signal image_loaded(paths : PackedStringArray, tab_index : int)
 signal on_remove_item(tab_index : int, image_path : String)
+
+var slideshow_items : Array[Item]
+var tab : Tab
+var tab_name : String
 
 func build_services(tab : int, images : Array[Setup.ImageItem] = []):
 	if images.size() > 0:
@@ -22,12 +28,14 @@ func bind_services(slideshow : SlideShow, tab_container : ImageTabContainer, set
 	image_selected.connect(slideshow.transition)
 	image_selected.connect(tab_container.on_image_selected)
 	on_item_add_slideshow.connect(slideshow.on_item_list_on_item_add_slideshow)
+	on_set_slideshow.connect(slideshow.on_set_slideshow)
 	image_loaded.connect(setup_controller.update_image_paths)
 	on_update_image_slideshow.connect(setup_controller.update_image_slideshow)
 	on_remove_item.connect(setup_controller.remove_image)
 	#image_loaded.connect(tab_container.on_update_setup)
 
 func load_items(paths : PackedStringArray,  prefix_path : String = ""):
+	if !active: return
 	image_loaded.emit(paths, tab_index)
 	for file in paths:
 		var image = Image.load_from_file(prefix_path + file)
@@ -63,11 +71,9 @@ func load_items_from_setup(images : Array[Setup.ImageItem]):
 		item.add_item(file_name, image, item_image.is_slideshow, file)
 		item.build_services()
 		item.bind_services(self)
+		if item_image.is_slideshow:
+			on_toggle_add_slideshow(item, true)
 		add_child(item)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func on_image_selected(item : Item, image : Image):
 	for _item in get_children():
@@ -80,7 +86,12 @@ func on_image_selected(item : Item, image : Image):
 	#ItemHandler.current_item = item
 
 func on_toggle_add_slideshow(item : Item, value : bool):
-	on_item_add_slideshow.emit(item, value)
+	#on_item_add_slideshow.emit(item, value)
+	if value:
+		slideshow_items.append(item)
+	else:
+		slideshow_items.erase(item)
+	on_set_slideshow.emit(slideshow_items)
 	on_update_image_slideshow.emit(item, tab_index, value)
 
 func erase_item(item : Item):
@@ -94,6 +105,16 @@ func toggle_all_not_current():
 
 func disconnect_load_signal():
 	get_viewport().get_window().files_dropped.disconnect(load_items)
+	var connections := get_viewport().get_window().files_dropped.get_connections()
+	
 	
 func connect_load_signal():
 	get_viewport().get_window().files_dropped.connect(load_items)
+	
+func on_tab_selected():
+	active = true
+	on_set_slideshow.emit(slideshow_items)
+
+func on_tab_deselected():
+	active = false
+	print(str(tab_index) + " atcive: " + str(active))
