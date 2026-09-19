@@ -73,9 +73,10 @@ func update_image_slideshow(item: Item, tab_index : int, is_slideshow : bool):
 		if setup.tabs[tab_index].image_paths[i].path == item.path:
 			setup.tabs[tab_index].image_paths[i].is_slideshow = is_slideshow
 			
-func add_tab(title : String):
+func add_tab(title : String, index : int):
 	var tab_resource := Setup.TabResource.new()
 	tab_resource.title = title
+	tab_resource.index = index
 	tab_resource.ease_type = Tween.EaseType.EASE_IN_OUT
 	tab_resource.trans_type = Tween.TransitionType.TRANS_CUBIC
 	tab_resource.duration = 5.0

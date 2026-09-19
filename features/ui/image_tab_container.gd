@@ -15,7 +15,7 @@ var is_awaiting_double_click : bool = false
 signal tab_button_clicked(node : Tab)
 signal update_setup(property_name : String, value : Variant, tab_index : int)
 signal setup_loaded(setup : Setup, tab_index : int)
-signal on_add_new_tab(title: String)
+signal on_add_new_tab(title: String, index : int)
 signal on_open_rename_tab(tab : Tab)
 
 var setup_controller : SetupController
@@ -68,7 +68,7 @@ func tab_clicked(tab : int):
 func add_new_tab(tab : int):
 	var new_tab := TAB_SCENE_REF.instantiate() as Tab
 	new_tab.name = "Tab " + str(tab+1)
-	on_add_new_tab.emit(new_tab.name)
+	on_add_new_tab.emit(new_tab.name, tab)
 	new_tab.build_services(setup_controller, tab)
 	new_tab.bind_services(self, slide_show, load_file_dialog, setup_controller)
 	tabs.insert(tabs.size()-1, new_tab)
@@ -97,6 +97,7 @@ func on_update_setup(property_name : String, value : Variant):
 	update_setup.emit(property_name, value, tab_index)
 
 func on_setup_changed(setup : Setup):
+	SignalHelper.disconnect_all(get_viewport().get_window().files_dropped.get_connections())
 	tabs.clear()
 	for i in range(setup.tabs.size()):
 		var tab := setup.tabs[i]
@@ -104,6 +105,7 @@ func on_setup_changed(setup : Setup):
 		new_tab.build_services(setup_controller, i, tab.image_paths)
 		new_tab.bind_services(self, slide_show, load_file_dialog, setup_controller)
 		new_tab.name = tab.title
+		new_tab.index = tab.index
 		tabs.append(new_tab)
 	tabs.append(new_tab_btn)
 	set_tabs()
