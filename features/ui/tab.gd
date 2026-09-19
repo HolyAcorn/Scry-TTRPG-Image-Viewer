@@ -16,8 +16,6 @@ func build_services(setup_controller : SetupController, tab_index : int, items :
 	setup = setup_controller.setup
 	options_menu.build_services(setup_controller, index)
 	item_list.build_services(index, items)
-	item_list.tab_name = setup.tabs[index].title
-	item_list.tab = self
 
 func bind_services(tab_container : ImageTabContainer, slide_show : SlideShow, load_image_dialog : LoadImageFileDialog, setup_controller : SetupController ):
 	add_item_btn.pressed.connect(load_image_dialog.show_file_dialog)

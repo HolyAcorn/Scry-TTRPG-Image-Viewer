@@ -5,7 +5,6 @@ const data_path := "res://data/"
 const item_path := preload("res://features/ui/item.tscn")
 
 var tab_index : int
-@export var active : bool
 
 signal image_selected(image : Item)
 signal on_item_add_slideshow(item: Item, value : bool)
@@ -16,8 +15,6 @@ signal image_loaded(paths : PackedStringArray, tab_index : int)
 signal on_remove_item(tab_index : int, image_path : String)
 
 var slideshow_items : Array[Item]
-var tab : Tab
-var tab_name : String
 
 func build_services(tab : int, images : Array[Setup.ImageItem] = []):
 	if images.size() > 0:
@@ -35,7 +32,6 @@ func bind_services(slideshow : SlideShow, tab_container : ImageTabContainer, set
 	#image_loaded.connect(tab_container.on_update_setup)
 
 func load_items(paths : PackedStringArray,  prefix_path : String = ""):
-	if !active: return
 	image_loaded.emit(paths, tab_index)
 	for file in paths:
 		var image = Image.load_from_file(prefix_path + file)
@@ -105,16 +101,13 @@ func toggle_all_not_current():
 
 func disconnect_load_signal():
 	get_viewport().get_window().files_dropped.disconnect(load_items)
-	var connections := get_viewport().get_window().files_dropped.get_connections()
 	
 	
 func connect_load_signal():
 	get_viewport().get_window().files_dropped.connect(load_items)
 	
 func on_tab_selected():
-	active = true
 	on_set_slideshow.emit(slideshow_items)
 
 func on_tab_deselected():
-	active = false
-	print(str(tab_index) + " atcive: " + str(active))
+	pass
