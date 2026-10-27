@@ -32,7 +32,8 @@ func on_slideshow():
 		return
 	is_slideshowing = !is_slideshowing
 	if is_slideshowing:
-		current_item.toggle_current(false)
+		if current_item != null:
+			current_item.toggle_current(false)
 		slideshow()
 		set_slideshow_btn_text.emit("Stop Slideshow")
 	else:
@@ -65,6 +66,14 @@ func on_item_list_on_item_add_slideshow(item: Item, value: bool) -> void:
 		items.erase(item)
 		if items.size() == 0:
 			toggle_slideshow_btn_disabled.emit(true)
+	
+func on_set_slideshow(new_items : Array[Item]) -> void:
+	items = new_items
+	if items.is_empty():
+		toggle_slideshow_btn_disabled.emit(true)
+		return
+	toggle_slideshow_btn_disabled.emit(false)
+	
 	
 func update_settings(setup: Setup, tab_index : int):
 	duration = setup.tabs[tab_index].duration

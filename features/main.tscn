@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ctt6wuvirm1r6" path="res://features/ui/ui.gd" id="2_stixs"]
 [ext_resource type="Script" uid="uid://dpt31yhd5qg5f" path="res://features/ui/image_tab_container.gd" id="3_qvctj"]
 [ext_resource type="PackedScene" uid="uid://ouqxr8viv3ko" path="res://features/ui/tab.tscn" id="4_kec3v"]
+[ext_resource type="Texture2D" uid="uid://lugs2lc2k3v8" path="res://cross.svg" id="4_ss1m1"]
 [ext_resource type="Script" uid="uid://bqplwi8b5dilo" path="res://features/ui/tab_name_edit.gd" id="5_55vp2"]
 [ext_resource type="PackedScene" uid="uid://c1ibl8t8ufq3y" path="res://features/image_window/image_window.tscn" id="6_kec3v"]
 [ext_resource type="Script" uid="uid://byjidpe7viyx4" path="res://features/ui/slideshow.gd" id="7_55vp2"]
@@ -74,6 +75,7 @@ layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 script = ExtResource("3_qvctj")
+tab_icon = ExtResource("4_ss1m1")
 new_tab_btn = NodePath("AddNewTabButton")
 metadata/_custom_type_script = "uid://dpt31yhd5qg5f"
 
