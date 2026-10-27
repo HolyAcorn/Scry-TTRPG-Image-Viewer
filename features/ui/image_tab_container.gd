@@ -3,6 +3,7 @@ extends TabContainer
 
 const TAB_SCENE_REF : PackedScene = preload("res://features/ui/tab.tscn")
 
+@export var tab_icon : Texture2D
 @export var new_tab_btn : Button
 var tab_index : int = 0
 
@@ -43,6 +44,7 @@ func bind_services(setup_controller : SetupController, slideshow : SlideShow, lo
 		if child is Tab:
 			child.bind_services(self, slide_show, load_file_dialog, setup_controller)
 	tab_selected.connect(tab_clicked)
+	tab_button_pressed.connect(on_tab_button_clicked)
 	setup_controller.on_setup_changed.connect(on_setup_changed)
 	update_setup.connect(setup_controller.update_setup)
 	on_add_new_tab.connect(setup_controller.add_tab)
@@ -84,6 +86,8 @@ func set_tabs():
 		if tab is Button:
 			set_tab_title(i, "+")
 			#tab_index = i
+		else:
+			set_tab_button_icon(i, tab_icon)
 #	while current_tab != new_tab_index:
 #		select_next_available()
 	
@@ -123,3 +127,9 @@ func load_images_from_dialog(paths : PackedStringArray):
 
 func _on_double_click_timer_timeout():
 	is_awaiting_double_click = false
+
+func on_tab_button_clicked(tab: int):
+	if tabs.size() < 2:
+		return
+	tabs.remove_at(tab)
+	set_tabs()
